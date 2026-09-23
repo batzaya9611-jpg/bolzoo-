@@ -391,6 +391,8 @@
         <input
           type="date"
           id="date"
+          min="2026-09-25"
+          max="2026-09-26"
         >
 
 
@@ -483,9 +485,7 @@
 
         Чамтай дахин анхны болзоо шигээ
         догдолж уулзмаар байна. 💕
-
         <br><br>
-
         Чамдаа хайртай. ❤️
 
       </p>
@@ -632,39 +632,20 @@
 
 
     /* ==========================================
-       DATE - ӨНӨӨДРӨӨС ӨМНӨХ ӨДӨР ХОРИГЛОНО
+       DATE
+       ЗӨВХӨН 2026-09-25 БОЛОН 2026-09-26
     ========================================== */
 
     const dateInput =
       document.getElementById("date");
 
 
-    const today =
-      new Date();
-
-
-    const year =
-      today.getFullYear();
-
-
-    const month =
-      String(
-        today.getMonth() + 1
-      ).padStart(2, "0");
-
-
-    const day =
-      String(
-        today.getDate()
-      ).padStart(2, "0");
-
-
-    const todayString =
-      `${year}-${month}-${day}`;
-
-
     dateInput.min =
-      todayString;
+      "2026-09-25";
+
+
+    dateInput.max =
+      "2026-09-26";
 
 
     /* ==========================================
@@ -691,10 +672,29 @@
         ).value;
 
 
-      /* Check */
+      /* ======================================
+         DATE CHECK
+         ЗӨВХӨН 25, 26
+      ====================================== */
 
       if (
-        !date ||
+        date !== "2026-09-25" &&
+        date !== "2026-09-26"
+      ) {
+
+        alert(
+          "Хайрт минь, 2026 оны 9 сарын 25 эсвэл 26-ны өдрөөс сонгоорой ❤️"
+        );
+
+        return;
+      }
+
+
+      /* ======================================
+         OTHER CHECK
+      ====================================== */
+
+      if (
         !time ||
         !place
       ) {
@@ -748,7 +748,7 @@
         if (result.success) {
 
           const selectedDate =
-            new Date(date);
+            new Date(date + "T00:00:00");
 
 
           const formattedDate =
@@ -796,6 +796,12 @@
 
 
           createConfetti();
+
+        } else {
+
+          alert(
+            "Мэдээлэл хадгалагдсангүй. Дахин оролдоорой ❤️"
+          );
 
         }
 
