@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Чамдаа ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3, #a18cd1);
+      color: white;
+    }
+
+    /* Background hearts */
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      font-size: 24px;
+      opacity: 0.7;
+      animation: float 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 500px;
+      padding: 45px 30px;
+      text-align: center;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 25px 60px rgba(80, 20, 50, 0.25);
+      animation: appear 1s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .big-heart {
+      font-size: 75px;
+      animation: beat 1.2s infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.18);
+      }
+    }
+
+    h1 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+
+    .question {
+      font-size: 27px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      min-height: 55px;
+    }
+
+    button {
+      border: none;
+      padding: 15px 28px;
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.25s;
+      font-family: inherit;
+    }
+
+    .yes {
+      background: white;
+      color: #ff4f81;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    }
+
+    .no {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      position: relative;
+    }
+
+    .date-card {
+      display: none;
+      animation: appear 0.8s ease;
+    }
+
+    .date-card h2 {
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+
+    .date-info {
+      background: rgba(255,255,255,0.16);
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+      line-height: 2;
+      font-size: 17px;
+    }
+
+    .final-message {
+      font-size: 19px;
+      line-height: 1.8;
+    }
+
+    .signature {
+      margin-top: 25px;
+      font-size: 18px;
+      font-style: italic;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      font-size: 25px;
+      z-index: 100;
+      animation: fall 4s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 35px 22px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .question {
+        font-size: 23px;
+      }
+
+      .big-heart {
+        font-size: 60px;
+      }
+    }
+.date-info label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.date-info input,
+.date-info select {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+}
+
+.confirm {
+  width: 100%;
+  margin-top: 22px;
+  background: white;
+  color: #ff4f81;
+}
+
+.confirm:hover {
+  transform: scale(1.03);
+}
+
+#confirmed {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.2);
+  line-height: 1.7;
+  display: none;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating hearts -->
+  <div class="heart" style="left:8%; animation-delay:0s;">❤️</div>
+  <div class="heart" style="left:20%; animation-delay:2s;">💕</div>
+  <div class="heart" style="left:35%; animation-delay:4s;">💗</div>
+  <div class="heart" style="left:52%; animation-delay:1s;">💖</div>
+  <div class="heart" style="left:68%; animation-delay:3s;">❤️</div>
+  <div class="heart" style="left:82%; animation-delay:5s;">💞</div>
+  <div class="heart" style="left:92%; animation-delay:1.5s;">💓</div>
+
+
+  <div class="container">
+
+    <!-- First screen -->
+    <div class="card" id="mainCard">
+
+      <div class="big-heart">❤️</div>
+
+      <h1>Сайн уу, хайрт минь?</h1>
+
+      <p class="subtitle">
+        Чамтай хамт өнгөрүүлсэн мөч бүр<br>
+        миний хувьд хамгийн үнэ цэнтэй байдаг. 🥰
+      </p>
+
+      <div class="question">
+        Надтай болзоонд явах уу? 🌹
+      </div>
+
+      <div class="buttons">
+        <button class="yes" onclick="sayYes()">
+          ❤️ Тийм ээ
+        </button>
+
+        <button class="no" id="noButton">
+          🙈 Үгүй
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- Yes screen -->
+    <div class="card date-card" id="dateCard">
+
+      <div class="big-heart">💖</div>
+
+      <h2>Yay! 🥰</h2>
+
+      <p class="final-message">
+        Чи “Тийм” гэж хэлсэнд баярлалаа ❤️
+        <br>
+        Тэгвэл энэ орой зөвхөн хоёулаа.
+      </p>
+
+      <div class="date-info">
+
+  <label for="date">
+    📅 Болзох өдрөө сонгоорой
+  </label>
+
+  <input type="date" id="date">
+
+  <label for="time">
+    🕖 Болзох цагаа сонгоорой
+  </label>
+
+  <input type="time" id="time">
+
+    <select id="place">
+    <option value="">Сонгоно уу ❤️</option>
+    <option>☕ Кофе уух</option>
+    <option>🍽️ Оройн хоол</option>
+    <option>🎬 Кино үзэх</option>
+    <option>🌹 Романтик оройн болзоо</option>
+    <option>🚶 Хамтдаа салхилах</option>
+  </select>
+
+  <button class="confirm" onclick="confirmDate()">
+    💕 Болзоогоо баталгаажуулах
+  </button>
+
+  <div id="confirmed"></div>
+
+</div>
+
+
+      <p class="final-message">
+        Чамтай дахин анхны болзоо шигээ догдолж уулзмаар байна. 💕
+        <br><br>
+        Чамдаа хайртай. ❤️
+      </p>
+
+      <div class="signature">
+        — Чиний нөхөрөөс 💌
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* "Үгүй" товч зугтана */
+    const noButton = document.getElementById("noButton");
+
+    noButton.addEventListener("mouseover", moveButton);
+
+    noButton.addEventListener("touchstart", moveButton);
+
+    function moveButton(e) {
+
+      e.preventDefault();
+
+      const maxX = window.innerWidth - 130;
+      const maxY = window.innerHeight - 80;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noButton.style.position = "fixed";
+      noButton.style.left = x + "px";
+      noButton.style.top = y + "px";
+    }
+
+
+    /* YES */
+    function sayYes() {
+
+      document.getElementById("mainCard").style.display = "none";
+
+      document.getElementById("dateCard").style.display = "block";
+
+      createConfetti();
+    }
+
+
+    /* Confetti / hearts */
+    function createConfetti() {
+
+      const items = ["❤️", "💖", "💕", "💗", "🌹", "✨", "🥰"];
+
+      for (let i = 0; i < 60; i++) {
+
+        const item = document.createElement("div");
+
+        item.className = "confetti";
+
+        item.innerHTML =
+          items[Math.floor(Math.random() * items.length)];
+
+        item.style.left = Math.random() * 100 + "vw";
+
+        item.style.animationDuration =
+          (2 + Math.random() * 3) + "s";
+
+        item.style.animationDelay =
+          Math.random() * 1.5 + "s";
+
+        document.body.appendChild(item);
+
+        setTimeout(() => {
+          item.remove();
+        }, 6000);
+      }
+    }
+function confirmDate() {
+
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+  const place = document.getElementById("place").value;
+
+  if (!date || !time || !place) {
+    alert("Хайрт минь, бүх сонголтоо хийгээрэй ❤️");
+    return;
+  }
+
+  const GOOGLE_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbwSqdmtYHBHwpyAGH9f7dx7s70XECp3N3PB92vXXhcrIX_MejXm33dUTt7VnIlU_uFy/exec";
+
+  const data = {
+    date: date,
+    time: time,
+    place: place
+  };
+
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+
+    if (result.success) {
+
+      const selectedDate = new Date(date);
+
+      const formattedDate =
+        selectedDate.toLocaleDateString("mn-MN", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+
+      document.getElementById("confirmed").style.display = "block";
+
+      document.getElementById("confirmed").innerHTML = `
+        🥰 <strong>Болзоо баталгаажлаа!</strong>
+        <br><br>
+        📅 ${formattedDate}<br>
+        🕖 ${time}<br>
+        📍 ${place}<br><br>
+        Чамтай болзоонд явахыг тэсэн ядан хүлээж байна. ❤️
+      `;
+
+      createConfetti();
+    }
+
+  })
+  .catch(error => {
+
+    console.error(error);
+
+    alert(
+      "Мэдээлэл илгээхэд алдаа гарлаа. Дахин оролдоорой ❤️"
+    );
+
+  });
+}
+
+  </script>
+
+</body>
+</html>
