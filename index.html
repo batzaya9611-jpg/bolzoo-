@@ -388,12 +388,21 @@
           📅 Болзох өдрөө сонгоорой
         </label>
 
-        <input
-          type="date"
-          id="date"
-          min="2026-09-25"
-          max="2026-09-26"
-        >
+        <select id="date">
+
+          <option value="">
+            Өдрөө сонгоно уу ❤️
+          </option>
+
+          <option value="2026-09-25">
+            📅 2026 оны 09 сарын 25
+          </option>
+
+          <option value="2026-09-26">
+            📅 2026 оны 09 сарын 26
+          </option>
+
+        </select>
 
 
         <!-- TIME -->
@@ -632,23 +641,6 @@
 
 
     /* ==========================================
-       DATE
-       ЗӨВХӨН 2026-09-25 БОЛОН 2026-09-26
-    ========================================== */
-
-    const dateInput =
-      document.getElementById("date");
-
-
-    dateInput.min =
-      "2026-09-25";
-
-
-    dateInput.max =
-      "2026-09-26";
-
-
-    /* ==========================================
        CONFIRM DATE
     ========================================== */
 
@@ -673,8 +665,7 @@
 
 
       /* ======================================
-         DATE CHECK
-         ЗӨВХӨН 25, 26
+         CHECK DATE
       ====================================== */
 
       if (
@@ -691,7 +682,7 @@
 
 
       /* ======================================
-         OTHER CHECK
+         CHECK OTHER OPTIONS
       ====================================== */
 
       if (
@@ -747,19 +738,17 @@
 
         if (result.success) {
 
-          const selectedDate =
-            new Date(date + "T00:00:00");
+          let formattedDate = "";
 
+          if (date === "2026-09-25") {
+            formattedDate =
+              "2026 оны 09 сарын 25";
+          }
 
-          const formattedDate =
-            selectedDate.toLocaleDateString(
-              "mn-MN",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-              }
-            );
+          if (date === "2026-09-26") {
+            formattedDate =
+              "2026 оны 09 сарын 26";
+          }
 
 
           document.getElementById(
@@ -810,7 +799,6 @@
       .catch(error => {
 
         console.error(error);
-
 
         alert(
           "Мэдээлэл илгээхэд алдаа гарлаа. Дахин оролдоорой ❤️"
